@@ -39,13 +39,13 @@ fun BanderaEspana(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
-                .background(Color.Black)
+                .background(Color(0xFFAA151B)) //rojo spainn
         )
         Box(
             modifier = Modifier
-                .weight(1f)
+                .weight(2f)
                 .fillMaxWidth()
-                .background(Color(0xFFDD0000)), //rojo
+                .background(Color(0xFFF1BF00)), // amarillo tiooo
             contentAlignment = Alignment.Center
         ) {
 
@@ -54,7 +54,7 @@ fun BanderaEspana(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
-                .background(Color(0xFFFFCE00)) // amarillo Alemania
+                .background(Color(0xFFAA151B)) // rojo spainn tioo
         )
     }
 }
