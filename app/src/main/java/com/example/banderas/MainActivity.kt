@@ -3,6 +3,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -14,7 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,22 +42,23 @@ fun BanderaEspana(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
-                .background(Color.Black)
+                .background(Color(0xFFAA151B)) //rojo spainn
         )
         Box(
             modifier = Modifier
-                .weight(1f)
+                .weight(2f)
                 .fillMaxWidth()
-                .background(Color(0xFFDD0000)), //rojo
-            contentAlignment = Alignment.Center
+                .background(Color(0xFFF1BF00)), // amarillo tiooo
         ) {
-
+            Image(painter = painterResource(id = R.drawable.spain),
+                contentDescription = "Escudo spain" ,
+                modifier = Modifier.padding(top = 130.dp, start = 50.dp).size(110.dp))
         }
         Box(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
-                .background(Color(0xFFFFCE00)) // amarillo Alemania
+                .background(Color(0xFFAA151B)) // rojo spainn tioo
         )
     }
 }
