@@ -10,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import com.example.banderas.ui.theme.BANDERASTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,7 +27,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             BANDERASTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    BanderaArgentina(
+                    BanderaBrasil(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -34,42 +35,41 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-@Composable
-fun BanderaArgentina(modifier: Modifier = Modifier) {
-    Column(modifier = modifier.fillMaxSize()) {
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth()
-                .background(Color(0xFF74ACDF)) // azul argentinooo
-        )
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth()
-                .background(Color.White),
-        ) {
-            Box(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .size(60.dp)
-                    .clip(CircleShape)
-                    .background(Color(0xFFF6B40E))
-            )
 
+val RombosShape = GenericShape { size, _ ->
+    moveTo(size.width / 2f, 0f)
+    lineTo(size.width, size.height / 2f)
+    lineTo(size.width / 2f, size.height)
+    lineTo(0f, size.height / 2f)
+    close()
+}
+
+@Composable
+fun BanderaBrasil(modifier: Modifier = Modifier) {
+        Box(
+            modifier = modifier.fillMaxSize().background(Color(0xFF009B3A)),
+            contentAlignment = Alignment.Center
+        )
+        {
         }
         Box(
             modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth()
-                .background(Color(0xFF74ACDF)) // azuul argentino
+                .fillMaxSize(0.75f)
+                .clip(RombosShape)
+                .background(Color(0xFFFEDF00))
         )
-    }
+
+        Box(
+                modifier = Modifier
+                    .size(60.dp)
+                    .clip(CircleShape)
+                    .background(Color.Blue)
+                )
 }
 @Preview(showBackground = true)
 @Composable
-fun BanderaArgentinaPreview() {
+fun BanderaBrasilPreview() {
     Surface {
-        BanderaArgentina(modifier = Modifier.fillMaxSize())
+        BanderaBrasil(modifier = Modifier.fillMaxSize())
     }
 }
