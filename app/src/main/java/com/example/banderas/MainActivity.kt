@@ -51,20 +51,25 @@ fun BanderaBrasil(modifier: Modifier = Modifier) {
             contentAlignment = Alignment.Center
         )
         {
-        }
-        Box(
-            modifier = Modifier
-                .fillMaxSize(0.75f)
-                .clip(RombosShape)
-                .background(Color(0xFFFEDF00))
-        )
-
-        Box(
+            Box(
                 modifier = Modifier
-                    .size(60.dp)
-                    .clip(CircleShape)
-                    .background(Color.Blue)
+                    .fillMaxSize(0.8f)
+                    .aspectRatio(1.5f)
+                    .clip(RombosShape)
+                    .background(Color(0xFFFEDF00)),
+                contentAlignment = Alignment.Center
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(90.dp)
+                        .clip(CircleShape)
+                        .background(Color.Blue)
                 )
+            }
+        }
+
+
+
 }
 @Preview(showBackground = true)
 @Composable
