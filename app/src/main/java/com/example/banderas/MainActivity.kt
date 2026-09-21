@@ -35,8 +35,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
-
 @Composable
 fun BanderaMexico(modifier: Modifier = Modifier) {
     Row(modifier = modifier.fillMaxSize()) {
