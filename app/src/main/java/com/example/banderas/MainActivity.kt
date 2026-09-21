@@ -10,7 +10,6 @@ import androidx.compose.material3.Scaffold
 import com.example.banderas.ui.theme.BANDERASTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,13 +38,13 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun BanderaJapon(modifier: Modifier = Modifier) {
         Box(
-            modifier = modifier.fillMaxSize().background(Color(0xFF009B3A)),
+            modifier = modifier.fillMaxSize().background(Color.White),
             contentAlignment = Alignment.Center
         )
         {
             Box(
                 modifier = Modifier
-                    .size(90.dp)
+                    .size(110.dp)
                     .clip(CircleShape)
                     .background(Color.Red)
             ) {
