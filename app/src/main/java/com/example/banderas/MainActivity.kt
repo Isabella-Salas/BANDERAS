@@ -39,22 +39,22 @@ fun BanderaColombia(modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxSize()) {
         Box(
             modifier = Modifier
-                .weight(1f)
+                .weight(2f)
                 .fillMaxWidth()
-                .background(Color(0xFFAA151B)) //rojo spainn
+                .background(Color(0xFFFFCD00)) //amarilloo
         )
         Box(
             modifier = Modifier
-                .weight(2f)
+                .weight(1f)
                 .fillMaxWidth()
-                .background(Color(0xFFF1BF00)), // amarillo tiooo
+                .background(Color(0xFF003087)), // azul
         ) {
         }
         Box(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
-                .background(Color(0xFFAA151B)) // rojo spainn tioo
+                .background(Color(0xFFC8102E)) // rojo
         )
     }
 }
