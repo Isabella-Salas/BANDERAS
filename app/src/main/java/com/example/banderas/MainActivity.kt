@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             BANDERASTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    BanderaEspana(
+                    BanderaColombia(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -34,9 +34,8 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
 @Composable
-fun BanderaEspana(modifier: Modifier = Modifier) {
+fun BanderaColombia(modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxSize()) {
         Box(
             modifier = Modifier
@@ -50,9 +49,6 @@ fun BanderaEspana(modifier: Modifier = Modifier) {
                 .fillMaxWidth()
                 .background(Color(0xFFF1BF00)), // amarillo tiooo
         ) {
-            Image(painter = painterResource(id = R.drawable.spain),
-                contentDescription = "Escudo spain" ,
-                modifier = Modifier.padding(top = 130.dp, start = 50.dp).size(110.dp))
         }
         Box(
             modifier = Modifier
@@ -62,11 +58,10 @@ fun BanderaEspana(modifier: Modifier = Modifier) {
         )
     }
 }
-
 @Preview(showBackground = true)
 @Composable
-fun BanderaEspanaPreview() {
+fun BanderaColombiaPreview() {
     Surface {
-        BanderaEspana(modifier = Modifier.fillMaxSize())
+        BanderaColombia(modifier = Modifier.fillMaxSize())
     }
 }
