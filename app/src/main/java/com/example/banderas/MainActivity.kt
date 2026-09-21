@@ -1,5 +1,4 @@
 package com.example.banderas
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -7,11 +6,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import com.example.banderas.ui.theme.BANDERASTheme
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.banderas.ui.theme.BANDERASTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,8 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             BANDERASTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    BanderaMexico(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -30,18 +29,17 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
+
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun BanderaMexico(modifier: Modifier = Modifier) {
+    // Aqui va el Row/Column/Box con las franjas o formas
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    BANDERASTheme {
-        Greeting("Android")
+fun BanderaMexicoPreview() {
+    Surface {
+        BanderaMexico(modifier = Modifier.fillMaxSize())
     }
 }
