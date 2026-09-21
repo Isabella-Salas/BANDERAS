@@ -39,7 +39,7 @@ fun BanderaItalia(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .weight(1f)
                 .fillMaxHeight()
-                .background(Color(0xFF0055A4)) // azul
+                .background(Color(0xFF009246)) // verde italia
         )
         Box(
             modifier = Modifier
@@ -54,7 +54,7 @@ fun BanderaItalia(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .weight(1f)
                 .fillMaxHeight()
-                .background(Color(0xFFEF4135)) // rojo
+                .background(Color(0xFFCE2B37)) // rojo italia
         )
     }
 }
