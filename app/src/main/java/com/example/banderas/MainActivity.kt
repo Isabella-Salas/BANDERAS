@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             BANDERASTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    BanderaItalia(
+                    BanderaAlemania(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -33,12 +33,12 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun BanderaItalia(modifier: Modifier = Modifier) {
-    Row(modifier = modifier.fillMaxSize()) {
+fun BanderaAlemania(modifier: Modifier = Modifier) {
+    Column(modifier = modifier.fillMaxSize()) {
         Box(
             modifier = Modifier
                 .weight(1f)
-                .fillMaxHeight()
+                .fillMaxWidth()
                 .background(Color(0xFF009246)) // verde italia
         )
         Box(
@@ -61,8 +61,8 @@ fun BanderaItalia(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun BanderaItaliaPreview() {
+fun BanderaAlemaniaPreview() {
     Surface {
-        BanderaItalia(modifier = Modifier.fillMaxSize())
+        BanderaAlemania(modifier = Modifier.fillMaxSize())
     }
 }
