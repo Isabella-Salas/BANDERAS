@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             BANDERASTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    BanderaBrasil(
+                    BanderaJapon(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -36,16 +36,8 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-val RombosShape = GenericShape { size, _ ->
-    moveTo(size.width / 2f, 0f)
-    lineTo(size.width, size.height / 2f)
-    lineTo(size.width / 2f, size.height)
-    lineTo(0f, size.height / 2f)
-    close()
-}
-
 @Composable
-fun BanderaBrasil(modifier: Modifier = Modifier) {
+fun BanderaJapon(modifier: Modifier = Modifier) {
         Box(
             modifier = modifier.fillMaxSize().background(Color(0xFF009B3A)),
             contentAlignment = Alignment.Center
@@ -53,18 +45,10 @@ fun BanderaBrasil(modifier: Modifier = Modifier) {
         {
             Box(
                 modifier = Modifier
-                    .fillMaxSize(0.8f)
-                    .aspectRatio(1.5f)
-                    .clip(RombosShape)
-                    .background(Color(0xFFFEDF00)),
-                contentAlignment = Alignment.Center
+                    .size(90.dp)
+                    .clip(CircleShape)
+                    .background(Color.Red)
             ) {
-                Box(
-                    modifier = Modifier
-                        .size(90.dp)
-                        .clip(CircleShape)
-                        .background(Color.Blue)
-                )
             }
         }
 
@@ -73,8 +57,8 @@ fun BanderaBrasil(modifier: Modifier = Modifier) {
 }
 @Preview(showBackground = true)
 @Composable
-fun BanderaBrasilPreview() {
+fun BanderaJaponPreview() {
     Surface {
-        BanderaBrasil(modifier = Modifier.fillMaxSize())
+        BanderaJapon(modifier = Modifier.fillMaxSize())
     }
 }
