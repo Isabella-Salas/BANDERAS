@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             BANDERASTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    BanderaJapon(
+                    BanderaUSA(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -36,19 +36,22 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun BanderaJapon(modifier: Modifier = Modifier) {
+fun BanderaUSA(modifier: Modifier = Modifier) {
         Box(
             modifier = modifier.fillMaxSize().background(Color.White),
             contentAlignment = Alignment.Center
         )
         {
-            Box(
-                modifier = Modifier
-                    .size(110.dp)
-                    .clip(CircleShape)
-                    .background(Color.Red)
-            ) {
+            Column(Modifier.fillMaxSize()){
+                    repeat(13) { index ->
+                        Box( Modifier
+                             .fillMaxWidth(1f)
+                            .fillMaxHeight()
+
+                        )
+                    }
             }
+
         }
 
 
@@ -56,8 +59,8 @@ fun BanderaJapon(modifier: Modifier = Modifier) {
 }
 @Preview(showBackground = true)
 @Composable
-fun BanderaJaponPreview() {
+fun BanderaUSAPreview() {
     Surface {
-        BanderaJapon(modifier = Modifier.fillMaxSize())
+        BanderaUSA(modifier = Modifier.fillMaxSize())
     }
 }
