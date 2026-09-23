@@ -35,6 +35,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @Composable
 fun StarCanvas(modifier: Modifier = Modifier) {
     Canvas(modifier = modifier) {
