@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
             BANDERASTheme() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     BanderaScreen(
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.padding(innerPadding),
                     )
                 }
             }
