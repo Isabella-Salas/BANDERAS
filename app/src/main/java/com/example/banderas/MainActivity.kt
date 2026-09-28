@@ -9,10 +9,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.banderas.screen.BanderaScreen
 import com.example.banderas.ui.theme.BANDERASTheme
-implementation ("androidx.constraintlayout:constraintlayout-compose:1.1.0")
 
 
 class MainActivity : ComponentActivity() {
@@ -31,16 +32,18 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Composable
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = "Hello $name!",
+        modifier = modifier
+    )
+}
 
 @Preview(showBackground = true)
 @Composable
-fun BanderaMexicoPreview() {
+fun GreetingPreview() {
     BANDERASTheme() {
-        BanderaMexico(modifier = Modifier.fillMaxSize())
+        Greeting("Android")
     }
-}
-
-@Composable
-fun BanderaMexico(modifier: Modifier) {
-    TODO("Not yet implemented")
 }

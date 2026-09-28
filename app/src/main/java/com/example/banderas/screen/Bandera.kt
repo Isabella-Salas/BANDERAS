@@ -9,13 +9,15 @@ import androidx.compose.ui.focus.FocusRequester.Companion.createRefs
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.banderas.BanderaMexico
+import com.example.banderas.BanderaScreen
 import com.example.banderas.ui.theme.BANDERASTheme
+implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0")
+
 
 
 
 @Composable
-fun BanderasScreen(modifier: Modifier){
+fun BanderaScreen(modifier: Modifier){
     ConstraintLayout(modifier = modifier){
         val (c1,c2,c3) = createRefs();
 
@@ -31,8 +33,6 @@ fun BanderasScreen(modifier: Modifier){
 }
 @Preview(showBackground = true)
 @Composable
-fun BanderaScreenPreview() {
-    BANDERASTheme() {
-        BanderaScreenPreview(modifier = Modifier.fillMaxSize())
-    }
+fun BanderaPreview(){
+    BanderaScreen( modifier = Modifier)
 }
