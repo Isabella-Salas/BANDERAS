@@ -60,6 +60,7 @@ fun BanderaScreen(modifier: Modifier){
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
         })
+
     }
 }
 @Preview(showBackground = true)
