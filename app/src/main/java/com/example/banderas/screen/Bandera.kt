@@ -28,12 +28,13 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
-import kotlinx.coroutines.NonDisposableHandle.parent
 
 
+
+@Preview
 @Composable
-fun BanderaScreen(modifier: Modifier){
-    ConstraintLayout(modifier = modifier.fillMaxSize()){
+fun BanderaScreen(){
+    ConstraintLayout(modifier = Modifier.fillMaxSize()){
         val (c1,c2,c3) = createRefs()
         Box(modifier = Modifier.background(Color.Green).constrainAs(c1) {
             top.linkTo(parent.top)
@@ -42,6 +43,7 @@ fun BanderaScreen(modifier: Modifier){
             end.linkTo(c2.start)
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
+
         })
         Box(modifier = Modifier.background(Color.White).constrainAs(c2) {
             top.linkTo(parent.top)
@@ -61,8 +63,4 @@ fun BanderaScreen(modifier: Modifier){
         })
     }
 }
-@Preview(showBackground = true)
-@Composable
-fun BanderaPreview(){
-    BanderaScreen(modifier = Modifier,)
-}
+
