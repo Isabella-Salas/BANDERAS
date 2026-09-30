@@ -34,16 +34,31 @@ import kotlinx.coroutines.NonDisposableHandle.parent
 @Composable
 fun BanderaScreen(modifier: Modifier){
     ConstraintLayout(modifier = modifier.fillMaxSize()){
-        val (c1,c2,c3) = createRefs();
-
-        Box(modifier = Modifier.size(100.dp).background(Color.Red).constrainAs(c1)){
+        val (c1,c2,c3) = createRefs()
+        Box(modifier = Modifier.size(100.dp).background(Color.Black).constrainAs(c1) {
+            top.linkTo(parent.top)
+            bottom.linkTo(c2.top)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
+            width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
-            width = Dimension.fillToconstraind
 
-            top.linkTo(parent.top)
+        })
+        Box(modifier = Modifier.size(200.dp).background(Color.Red).constrainAs(c2) {
+            top.linkTo(c1.bottom)
+            bottom.linkTo(c3.top)
+            start.linkTo( parent.start)
+            end.linkTo(parent.end)
+            width = Dimension.fillToConstraints
+            height = Dimension.percent(0.5f)
+        })
+        Box(modifier = Modifier.size(100.dp).background(Color.Yellow).constrainAs(c3) {
+            top.linkTo(c2.bottom)
             bottom.linkTo(parent.bottom)
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+            width = Dimension.fillToConstraints
+            height = Dimension.fillToConstraints
         })
     }
 }
