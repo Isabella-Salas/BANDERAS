@@ -50,9 +50,9 @@ fun BanderaScreen(modifier: Modifier){
             start.linkTo( parent.start)
             end.linkTo(parent.end)
             width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
+            height = Dimension.percent(0.5f)
         })
-        Box(modifier = Modifier.background(Color.Yellow).constrainAs(c3) {
+        Box(modifier = Modifier.size(100.dp).background(Color.Yellow).constrainAs(c3) {
             top.linkTo(c2.bottom)
             bottom.linkTo(parent.bottom)
             start.linkTo(parent.start)
