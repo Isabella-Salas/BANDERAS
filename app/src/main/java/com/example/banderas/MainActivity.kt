@@ -9,11 +9,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.banderas.screen.BanderaScreen
 import com.example.banderas.ui.theme.BANDERASTheme
+
+
+
 
 
 class MainActivity : ComponentActivity() {
@@ -22,10 +26,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BANDERASTheme() {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    BanderaScreen(
-                        modifier = Modifier.padding(innerPadding),
-                    )
+                Surface(modifier = Modifier.fillMaxSize()) {
+                    BanderaScreen()
                 }
             }
         }
