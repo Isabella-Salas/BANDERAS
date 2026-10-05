@@ -40,34 +40,30 @@ import kotlinx.coroutines.NonDisposableHandle.parent
 import kotlin.math.cos
 import kotlin.math.sin
 
+fun pointFromAngle(angle: Float, size: Size): Offset {
+    val rad = Math.toRadians(angle.toDouble())
+    val dx = kotlin.math.cos(rad).toFloat()
+    val dy = kotlin.math.sin(rad).toFloat()
 
-fun Path.star(
-    centerX: Float,
-    centerY: Float,
-    outerRadius: Float,
-    innerRadius: Float
-) {
-    val points = 5
-    val angle = (2.0 * Math.PI / points).toFloat()
-    val halfAngle = angle / 2f
+    val origin = Offset(0f, size.height)
 
-    moveTo(
-        centerX,
-        centerY - outerRadius
-    )
+    // Intersección con borde superior
+    val tTop = size.height / dy
+    val xTop = origin.x + dx * tTop
+    val yTop = origin.y - dy * tTop
 
-    for (i in 1 until points * 2) {
-        val r = if (i % 2 == 0) outerRadius else innerRadius
-        val a = i * halfAngle - Math.PI.toFloat() / 2f
-
-        val x = centerX + (r * kotlin.math.cos(a))
-        val y = centerY + (r * kotlin.math.sin(a))
-
-        lineTo(x, y)
+    if (xTop in 0f..size.width) {
+        return Offset(xTop, yTop)
     }
 
-    close()
+    // Intersección con borde derecho
+    val tRight = size.width / dx
+    val xRight = origin.x + dx * tRight
+    val yRight = origin.y - dy * tRight
+
+    return Offset(xRight, yRight)
 }
+
 
 @Composable
 fun BanderaScreen(modifier: Modifier = Modifier){
@@ -76,58 +72,32 @@ fun BanderaScreen(modifier: Modifier = Modifier){
             .fillMaxWidth()
             .aspectRatio(1.5f) // Mantiene la proporción oficial 3:2 de la bandera
     ) {
-        val width = size.width
-        val height = size.height
-        val azulCuba = Color(0xFF002E6E) // Color azul clásico de la bandera
 
-        // 1. Fondo blanco general
-        drawRect(color = Color.White)
+        val azulSeychelle = Color(0xFF002F6C)
+        val amarilloSeychelle = Color(0xFFFED141)
+        val rojoSeychelle = Color(0xFFD22730)
+        val verdeSeychelle =  Color(0xFF007A33)
+        val origin = Offset(0f, size.height)
 
-        // 2. Franjas horizontales azules (Superior e Inferior)
-        val altoFranja = height * 0.15f // Altura proporcional de las franjas
 
-        // Franja superior
-        drawRect(
-            color = azulCuba,
-            topLeft = Offset(0f, height * 0.001f),
-            size = Size(width, altoFranja)
-        )
-        //franja intermedia
-        drawRect(
-            color = azulCuba,
-            topLeft = Offset(0f, height * 0.30f),
-            size = Size(width, altoFranja)
-        )
-        //penultima franja
-        drawRect(
-            color = azulCuba,
-            topLeft = Offset(0f, height * 0.58f),
-            size = Size(width, altoFranja)
-        )
-        // Franja inferior
-        drawRect(
-            color = azulCuba,
-            topLeft = Offset(0f, height * 0.85f),
-            size = Size(width, altoFranja)
-        )
-        val triWidth = size.width * 0.38f
-        val trianglePath = Path().apply {
-            moveTo(0f, 0f)
-            lineTo(triWidth, size.height / 2f)
-            lineTo(0f, size.height)
-            close()
+        val angles = listOf(90f, 72f, 54f, 36f, 18f, 0f)
+        val points = angles.map { pointFromAngle(it, size) }
+
+        val colors = listOf(azulSeychelle, amarilloSeychelle, rojoSeychelle, Color.White, verdeSeychelle)
+
+
+        for (i in 0 until 5) {
+            val path = Path().apply {
+                moveTo(origin.x, origin.y)
+                lineTo(points[i].x, points[i].y)
+                lineTo(points[i + 1].x, points[i + 1].y)
+                close()
+            }
+            drawPath(path, colors[i])
         }
-        drawPath(trianglePath, color = Color(0xFFCB1428))
 
-        val centerX = triWidth * 0.45f
-        val centerY = size.height / 2f
 
-        val starPath = Path().apply {
-            val outerRadius = triWidth * 0.18f
-            val innerRadius = outerRadius * 0.45f
-            star(centerX, centerY, outerRadius, innerRadius)
-        }
-        drawPath(starPath, color = Color.White)
+
 
         // Estrella centrada aprox en (triWidth * 0.38f, size.height / 2f)
     }
