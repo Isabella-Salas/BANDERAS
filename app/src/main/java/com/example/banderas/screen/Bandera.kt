@@ -33,35 +33,33 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.vector.Path
-import com.example.banderas.R
-import kotlinx.coroutines.NonDisposableHandle.parent
-import kotlin.math.cos
-import kotlin.math.sin
 
-fun pointFromAngle(angle: Float, size: Size): Offset {
-    val rad = Math.toRadians(angle.toDouble())
-    val dx = kotlin.math.cos(rad).toFloat()
-    val dy = kotlin.math.sin(rad).toFloat()
+fun Path.star(
+    centerX: Float,
+    centerY: Float,
+    outerRadius: Float,
+    innerRadius: Float
+) {
+    val points = 5
+    val angle = (2.0 * Math.PI / points).toFloat()
+    val halfAngle = angle / 2f
 
-    val origin = Offset(0f, size.height)
+    moveTo(
+        centerX,
+        centerY - outerRadius
+    )
 
-    // Intersección con borde superior
-    val tTop = size.height / dy
-    val xTop = origin.x + dx * tTop
-    val yTop = origin.y - dy * tTop
+    for (i in 1 until points * 2) {
+        val r = if (i % 2 == 0) outerRadius else innerRadius
+        val a = i * halfAngle - Math.PI.toFloat() / 2f
 
-    if (xTop in 0f..size.width) {
-        return Offset(xTop, yTop)
+        val x = centerX + (r * kotlin.math.cos(a))
+        val y = centerY + (r * kotlin.math.sin(a))
+
+        lineTo(x, y)
     }
 
-    // Intersección con borde derecho
-    val tRight = size.width / dx
-    val xRight = origin.x + dx * tRight
-    val yRight = origin.y - dy * tRight
-
-    return Offset(xRight, yRight)
+    close()
 }
 
 
@@ -73,33 +71,51 @@ fun BanderaScreen(modifier: Modifier = Modifier){
             .aspectRatio(1.5f) // Mantiene la proporción oficial 3:2 de la bandera
     ) {
 
-        val azulSeychelle = Color(0xFF002F6C)
-        val amarilloSeychelle = Color(0xFFFED141)
-        val rojoSeychelle = Color(0xFFD22730)
-        val verdeSeychelle =  Color(0xFF007A33)
-        val origin = Offset(0f, size.height)
+        val black = Color(0xFF000000)
+        val red = Color(0xFFD00000)
 
+        // Triángulo negro
+        val blackPoints = listOf(
+            Offset(0f, 0f),
+            Offset(size.width, size.height),
+            Offset(0f, size.height)
+        )
 
-        val angles = listOf(90f, 72f, 54f, 36f, 18f, 0f)
-        val points = angles.map { pointFromAngle(it, size) }
+        val blackPath = Path().apply {
+            moveTo(blackPoints[0].x, blackPoints[0].y)
+            lineTo(blackPoints[1].x, blackPoints[1].y)
+            lineTo(blackPoints[2].x, blackPoints[2].y)
+            close()
+        }
+        drawPath(blackPath, black)
 
-        val colors = listOf(azulSeychelle, amarilloSeychelle, rojoSeychelle, Color.White, verdeSeychelle)
+        // Triángulo rojo
+        val redPoints = listOf(
+            Offset(0f, 0f),
+            Offset(size.width, 0f),
+            Offset(size.width, size.height)
+        )
 
+        val redPath = Path().apply {
+            moveTo(redPoints[0].x, redPoints[0].y)
+            lineTo(redPoints[1].x, redPoints[1].y)
+            lineTo(redPoints[2].x, redPoints[2].y)
+            close()
+        }
+        drawPath(redPath, red)
+        val triWidth = size.width * 0.38f
 
-        for (i in 0 until 5) {
-            val path = Path().apply {
-                moveTo(origin.x, origin.y)
-                lineTo(points[i].x, points[i].y)
-                lineTo(points[i + 1].x, points[i + 1].y)
-                close()
-            }
-            drawPath(path, colors[i])
+        val centerX = triWidth * 0.45f
+        val centerY = size.height / 2f
+
+        val starPath = Path().apply {
+            val outerRadius = triWidth * 0.18f
+            val innerRadius = outerRadius * 0.45f
+            star(centerX, centerY, outerRadius, innerRadius)
         }
 
+        drawPath(starPath, color = Color.Yellow)
 
-
-
-        // Estrella centrada aprox en (triWidth * 0.38f, size.height / 2f)
     }
 }
 
