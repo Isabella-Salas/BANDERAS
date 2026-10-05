@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
@@ -32,12 +33,21 @@ import com.example.banderas.R
 import kotlinx.coroutines.NonDisposableHandle.parent
 
 
+
+val RombosShape = GenericShape { size, _ ->
+    moveTo(size.width / 2f, 0f)
+    lineTo(size.width, size.height / 2f)
+    lineTo(size.width / 2f, size.height)
+    lineTo(0f, size.height / 2f)
+    close()
+}
+
 @Composable
 fun BanderaScreen(modifier: Modifier){
     ConstraintLayout(modifier = modifier.fillMaxSize()){
-        val (c1,c2,c3,circle) = createRefs();
+        val (c1,c2,c3,circle,rombo) = createRefs();
 
-        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.celeste)).constrainAs(c1) {
+        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.verde_brasiiil)).constrainAs(c1) {
             top.linkTo(parent.top)
             bottom.linkTo(c2.top)
             start.linkTo(parent.start)
@@ -46,7 +56,7 @@ fun BanderaScreen(modifier: Modifier){
             height = Dimension.fillToConstraints
 
         })
-        Box(modifier = Modifier.size(100.dp).background(Color.White).constrainAs(c2) {
+        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.verde_brasiiil)).constrainAs(c2) {
             top.linkTo(c1.bottom)
             bottom.linkTo(c3.top)
             start.linkTo( parent.start)
@@ -54,7 +64,7 @@ fun BanderaScreen(modifier: Modifier){
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
         })
-        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.celeste)).constrainAs(c3) {
+        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.verde_brasiiil)).constrainAs(c3) {
             top.linkTo(c2.bottom)
             bottom.linkTo(parent.bottom)
             start.linkTo(parent.start)
@@ -62,13 +72,28 @@ fun BanderaScreen(modifier: Modifier){
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
         })
-        Box(modifier = Modifier.size(100.dp).clip(CircleShape).background(colorResource(id = R.color.amarillo_argentina)).constrainAs(circle) {
+        Box(modifier = Modifier.size(100.dp).clip(RombosShape).background(colorResource(id = R.color.yellow_brasil)).constrainAs(rombo) {
             top.linkTo(c1.bottom)
             bottom.linkTo(c3.top)
             start.linkTo( parent.start)
             end.linkTo(parent.end)
-
+            width = Dimension.fillToConstraints
+            height = Dimension.fillToConstraints
         })
+        Box(
+            modifier = Modifier
+                .size(100.dp)
+                .clip(CircleShape)
+                .background(colorResource(id = R.color.azul_brasil))
+                .constrainAs(circle) {
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+        )
+
+
 
     }
 }
