@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.material3.MaterialTheme
@@ -29,6 +30,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.ui.geometry.Offset
 import com.example.banderas.R
 import kotlinx.coroutines.NonDisposableHandle.parent
 
@@ -36,26 +38,17 @@ import kotlinx.coroutines.NonDisposableHandle.parent
 
 @Composable
 fun BanderaScreen(modifier: Modifier){
-    Box(
-        modifier = modifier
-            .aspectRatio(1f)
-            .background(Color(0xFFD52B1E))
-    ) {
-        Box(
-            Modifier
-                .align(Alignment.Center)
-                .fillMaxWidth(0.2f)
-                .fillMaxHeight(0.62f)
-                .background(Color.White)
-        )
-        Box(
-            Modifier
-                .align(Alignment.Center)
-                .fillMaxHeight(0.2f)
-                .fillMaxWidth(0.62f)
-                .background(Color.White)
-        )
+    Canvas(modifier = modifier.fillMaxWidth().aspectRatio(2f)) {
+        drawRect(color = Color(0xFFE30A17))
+        val cy = size.height / 2f
+        val rOut = size.height * 0.30f
+        drawCircle(color = Color.White, radius = rOut,
+            center = Offset(size.width * 0.18f, cy))
+        drawCircle(color = Color(0xFFE30A17), radius = size.height * 0.24f,
+            center = Offset(size.width * 0.18f + size.height * 0.09f, cy))
+
     }
+
 }
 @Preview(showBackground = true)
 @Composable
