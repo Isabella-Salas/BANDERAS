@@ -28,8 +28,9 @@ import com.example.banderas.R
 @Composable
 fun BanderaScreen(modifier: Modifier = Modifier){
     ConstraintLayout(modifier = modifier.fillMaxSize()){
-        val (c1,c2,c3,spain) = createRefs()
-        Box(modifier = Modifier.size(100.dp).background(Color.Red).constrainAs(c1) {
+        val (c1,c2,c3) = createRefs();
+
+        Box(modifier = Modifier.size(100.dp).background(Color.Yellow).constrainAs(c1) {
             top.linkTo(parent.top)
             bottom.linkTo(c2.top)
             start.linkTo(parent.start)
@@ -38,13 +39,13 @@ fun BanderaScreen(modifier: Modifier = Modifier){
             height = Dimension.fillToConstraints
 
         })
-        Box(modifier = Modifier.size(200.dp).background(Color.Yellow).constrainAs(c2) {
+        Box(modifier = Modifier.size(200.dp).background(Color.Blue).constrainAs(c2) {
             top.linkTo(c1.bottom)
             bottom.linkTo(c3.top)
             start.linkTo( parent.start)
             end.linkTo(parent.end)
             width = Dimension.fillToConstraints
-            height = Dimension.percent(0.5f)
+            height = Dimension.percent(0.25f)
         })
         Box(modifier = Modifier.size(100.dp).background(Color.Red).constrainAs(c3) {
             top.linkTo(c2.bottom)
