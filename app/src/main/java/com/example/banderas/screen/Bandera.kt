@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.draw.clip
@@ -21,12 +22,13 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
+import com.example.banderas.R
 
 
 @Composable
 fun BanderaScreen(modifier: Modifier = Modifier){
     ConstraintLayout(modifier = modifier.fillMaxSize()){
-        val (c1,c2,c3) = createRefs()
+        val (c1,c2,c3,spain) = createRefs()
         Box(modifier = Modifier.size(100.dp).background(Color.Red).constrainAs(c1) {
             top.linkTo(parent.top)
             bottom.linkTo(c2.top)
@@ -52,6 +54,19 @@ fun BanderaScreen(modifier: Modifier = Modifier){
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
         })
+        Image(
+            painter = painterResource(id = R.drawable.spain),
+            contentDescription = "Escudo España",
+            modifier = Modifier
+                .size(100.dp)
+                .constrainAs(spain) {
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    horizontalBias = 0.2f // Ubicación del escudo hacia la izquierda
+                }
+        )
     }
 }
 @Preview(showBackground = true)
