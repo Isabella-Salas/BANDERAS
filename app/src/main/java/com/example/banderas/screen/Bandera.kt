@@ -40,6 +40,35 @@ import kotlinx.coroutines.NonDisposableHandle.parent
 import kotlin.math.cos
 import kotlin.math.sin
 
+
+fun Path.star(
+    centerX: Float,
+    centerY: Float,
+    outerRadius: Float,
+    innerRadius: Float
+) {
+    val points = 5
+    val angle = (2.0 * Math.PI / points).toFloat()
+    val halfAngle = angle / 2f
+
+    moveTo(
+        centerX,
+        centerY - outerRadius
+    )
+
+    for (i in 1 until points * 2) {
+        val r = if (i % 2 == 0) outerRadius else innerRadius
+        val a = i * halfAngle - Math.PI.toFloat() / 2f
+
+        val x = centerX + (r * kotlin.math.cos(a))
+        val y = centerY + (r * kotlin.math.sin(a))
+
+        lineTo(x, y)
+    }
+
+    close()
+}
+
 @Composable
 fun BanderaScreen(modifier: Modifier = Modifier){
     Canvas(
@@ -49,69 +78,58 @@ fun BanderaScreen(modifier: Modifier = Modifier){
     ) {
         val width = size.width
         val height = size.height
-        val azulIsrael = Color(0xFF0038B8) // Color azul clásico de la bandera
+        val azulCuba = Color(0xFF002E6E) // Color azul clásico de la bandera
 
         // 1. Fondo blanco general
         drawRect(color = Color.White)
 
         // 2. Franjas horizontales azules (Superior e Inferior)
-        val altoFranja = height * 0.08f // Altura proporcional de las franjas
+        val altoFranja = height * 0.15f // Altura proporcional de las franjas
 
         // Franja superior
         drawRect(
-            color = azulIsrael,
-            topLeft = Offset(0f, height * 0.12f),
+            color = azulCuba,
+            topLeft = Offset(0f, height * 0.001f),
             size = Size(width, altoFranja)
         )
-
+        //franja intermedia
+        drawRect(
+            color = azulCuba,
+            topLeft = Offset(0f, height * 0.30f),
+            size = Size(width, altoFranja)
+        )
+        //penultima franja
+        drawRect(
+            color = azulCuba,
+            topLeft = Offset(0f, height * 0.58f),
+            size = Size(width, altoFranja)
+        )
         // Franja inferior
         drawRect(
-            color = azulIsrael,
-            topLeft = Offset(0f, height * 0.80f),
+            color = azulCuba,
+            topLeft = Offset(0f, height * 0.85f),
             size = Size(width, altoFranja)
         )
-
-        // 3. Estrella de David (Magen David) en el centro
-        val centroX = width / 2f
-        val centroY = height / 2f
-        val radioEstrella = height * 0.22f // Tamaño del radio de la estrella
-
-        // Triángulo superior (apuntando hacia arriba)
-        val pathTriangulo1 = Path().apply {
-            for (i in 0 until 3) {
-                // Ángulos para formar el triángulo apuntando hacia arriba
-                val angulo = (-Math.PI / 2) + (i * 2 * Math.PI / 3)
-                val x = centroX + (radioEstrella * cos(angulo)).toFloat()
-                val y = centroY + (radioEstrella * sin(angulo)).toFloat()
-                if (i == 0) moveTo(x, y) else lineTo(x, y)
-            }
+        val triWidth = size.width * 0.38f
+        val trianglePath = Path().apply {
+            moveTo(0f, 0f)
+            lineTo(triWidth, size.height / 2f)
+            lineTo(0f, size.height)
             close()
         }
+        drawPath(trianglePath, color = Color(0xFFCB1428))
 
-        // Triángulo inferior (apuntando hacia abajo)
-        val pathTriangulo2 = Path().apply {
-            for (i in 0 until 3) {
-                // Ángulos girados para formar el triángulo invertido
-                val angulo = (Math.PI / 2) + (i * 2 * Math.PI / 3)
-                val x = centroX + (radioEstrella * cos(angulo)).toFloat()
-                val y = centroY + (radioEstrella * sin(angulo)).toFloat()
-                if (i == 0) moveTo(x, y) else lineTo(x, y)
-            }
-            close()
+        val centerX = triWidth * 0.45f
+        val centerY = size.height / 2f
+
+        val starPath = Path().apply {
+            val outerRadius = triWidth * 0.18f
+            val innerRadius = outerRadius * 0.45f
+            star(centerX, centerY, outerRadius, innerRadius)
         }
+        drawPath(starPath, color = Color.White)
 
-        // Dibujar los contornos o relleno de la estrella de David
-        // Usamos Stroke para que se vea con líneas definidas como la bandera oficial
-        drawPath(
-            path = pathTriangulo1,
-            color = azulIsrael,
-            style = Stroke(width = 8f) // Grosor de las líneas de la estrella
-        )
-        drawPath(
-            path = pathTriangulo2,
-            color = azulIsrael,
-            style = Stroke(width = 8f)
-        )
+        // Estrella centrada aprox en (triWidth * 0.38f, size.height / 2f)
     }
 }
 
