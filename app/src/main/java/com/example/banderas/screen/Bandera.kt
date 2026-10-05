@@ -36,14 +36,30 @@ fun BanderaScreen(modifier: Modifier){
     ConstraintLayout(modifier = modifier.fillMaxSize()){
         val (c1,c2,c3) = createRefs();
 
-        Box(modifier = Modifier.size(100.dp).background(Color.Red).constrainAs(c1)){
+        Box(modifier = Modifier.size(100.dp).background(colorResource(id = R.color.)).constrainAs(c1) {
+            top.linkTo(parent.top)
+            bottom.linkTo(c2.top)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
+            width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
-            width = Dimension.fillToconstraind
 
-            top.linkTo(parent.top)
+        })
+        Box(modifier = Modifier.size(100.dp).background(Color.White).constrainAs(c2) {
+            top.linkTo(c1.bottom)
+            bottom.linkTo(c3.top)
+            start.linkTo( parent.start)
+            end.linkTo(parent.end)
+            width = Dimension.fillToConstraints
+            height = Dimension.fillToConstraints
+        })
+        Box(modifier = Modifier.size(100.dp).background(Color.Red).constrainAs(c3) {
+            top.linkTo(c2.bottom)
             bottom.linkTo(parent.bottom)
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+            width = Dimension.fillToConstraints
+            height = Dimension.fillToConstraints
         })
     }
 }
