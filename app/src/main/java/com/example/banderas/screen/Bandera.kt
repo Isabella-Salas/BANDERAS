@@ -36,49 +36,25 @@ import kotlinx.coroutines.NonDisposableHandle.parent
 
 @Composable
 fun BanderaScreen(modifier: Modifier){
-    ConstraintLayout(modifier = modifier.fillMaxSize()){
-        val (c1,c2,c3,circle) = createRefs();
-
-        Box(modifier = Modifier.size(100.dp).background(Color.White).constrainAs(c1) {
-            top.linkTo(parent.top)
-            bottom.linkTo(c2.top)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
-            width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
-
-        })
-        Box(modifier = Modifier.size(100.dp).background(Color.White).constrainAs(c2) {
-            top.linkTo(c1.bottom)
-            bottom.linkTo(c3.top)
-            start.linkTo( parent.start)
-            end.linkTo(parent.end)
-            width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
-        })
-        Box(modifier = Modifier.size(100.dp).background(Color.White).constrainAs(c3) {
-            top.linkTo(c2.bottom)
-            bottom.linkTo(parent.bottom)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
-            width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
-        })
+    Box(
+        modifier = modifier
+            .aspectRatio(1f)
+            .background(Color(0xFFD52B1E))
+    ) {
         Box(
-            modifier = Modifier
-                .size(100.dp)
-                .clip(CircleShape)
-                .background(colorResource(id = R.color.rojo_espana))
-                .constrainAs(circle) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
+            Modifier
+                .align(Alignment.Center)
+                .fillMaxWidth(0.2f)
+                .fillMaxHeight(0.62f)
+                .background(Color.White)
         )
-
-
-
+        Box(
+            Modifier
+                .align(Alignment.Center)
+                .fillMaxHeight(0.2f)
+                .fillMaxWidth(0.62f)
+                .background(Color.White)
+        )
     }
 }
 @Preview(showBackground = true)
