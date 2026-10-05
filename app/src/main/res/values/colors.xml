@@ -11,4 +11,13 @@
     <color name="azulChile">#FF0032A0</color>
     <color name="Rojo_Mexico">#FFCE1126</color>
     <color name="Verde_Mexico">#FF006341</color>
+    <color name="amarillo_espana">#FFF1BF00</color>
+    <color name="rojo_espana">#FFAA151B</color>
+    <color name="celeste">#FF74ACDF</color>
+    <color name="amarillo_argentina">#FFF6B40E</color>
+    <color name="verde_brasiiil">#FF009B3A</color>
+    <color name="yellow_brasil">#FFFEDF00</color>
+    <color name="azul_brasil">#FF002776</color>
+    <color name="rojo_gringo">#FFB22234</color>
+    <color name="azul_gringo">#FF3C3B6E</color>
 </resources>

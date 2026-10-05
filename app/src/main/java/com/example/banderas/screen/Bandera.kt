@@ -1,12 +1,5 @@
 package  com.example.banderas.screen
 
-import android.R.attr.end
-import android.R.attr.start
-import android.R.attr.top
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Scaffold
@@ -20,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.draw.clip
@@ -28,31 +22,31 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
-import kotlinx.coroutines.NonDisposableHandle
-import kotlinx.coroutines.NonDisposableHandle.parent
+import com.example.banderas.R
 
 
 @Composable
-fun BanderaScreen(modifier: Modifier){
+fun BanderaScreen(modifier: Modifier = Modifier){
     ConstraintLayout(modifier = modifier.fillMaxSize()){
-        val (c1,c2,c3) = createRefs()
-        Box(modifier = Modifier.background(Color.Black).constrainAs(c1) {
+        val (c1,c2,c3,spain) = createRefs()
+        Box(modifier = Modifier.size(100.dp).background(Color.Red).constrainAs(c1) {
             top.linkTo(parent.top)
             bottom.linkTo(c2.top)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
+
         })
-        Box(modifier = Modifier.background(Color.Red).constrainAs(c2) {
+        Box(modifier = Modifier.size(200.dp).background(Color.Yellow).constrainAs(c2) {
             top.linkTo(c1.bottom)
             bottom.linkTo(c3.top)
             start.linkTo( parent.start)
             end.linkTo(parent.end)
             width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
+            height = Dimension.percent(0.5f)
         })
-        Box(modifier = Modifier.background(Color.Yellow).constrainAs(c3) {
+        Box(modifier = Modifier.size(100.dp).background(Color.Red).constrainAs(c3) {
             top.linkTo(c2.bottom)
             bottom.linkTo(parent.bottom)
             start.linkTo(parent.start)
@@ -60,11 +54,23 @@ fun BanderaScreen(modifier: Modifier){
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
         })
-
+        Image(
+            painter = painterResource(id = R.drawable.spain),
+            contentDescription = "Escudo España",
+            modifier = Modifier
+                .size(100.dp)
+                .constrainAs(spain) {
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    horizontalBias = 0.2f // Ubicación del escudo hacia la izquierda
+                }
+        )
     }
 }
 @Preview(showBackground = true)
 @Composable
 fun BanderaPreview(){
-    BanderaScreen(modifier = Modifier,)
+    BanderaScreen(modifier = Modifier)
 }
