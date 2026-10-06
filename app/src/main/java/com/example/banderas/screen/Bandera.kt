@@ -1,5 +1,6 @@
 package  com.example.banderas.screen
 
+import android.R
 import android.R.attr.end
 import android.R.attr.start
 import android.R.attr.top
@@ -19,35 +20,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.foundation.Canvas
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.Path
 
-fun Path.star(
-    centerX: Float,
-    centerY: Float,
-    outerRadius: Float,
-    innerRadius: Float
-) {
-    val points = 5
-    val angle = (2.0 * Math.PI / points).toFloat()
-    val halfAngle = angle / 2f
 
-    moveTo(
-        centerX,
-        centerY - outerRadius
-    )
-
-    for (i in 1 until points * 2) {
-        val r = if (i % 2 == 0) outerRadius else innerRadius
-        val a = i * halfAngle - Math.PI.toFloat() / 2f
-
-        val x = centerX + (r * kotlin.math.cos(a))
-        val y = centerY + (r * kotlin.math.sin(a))
-
-        lineTo(x, y)
-    }
-
-    close()
-}
 
 
 @Composable
@@ -58,51 +34,36 @@ fun BanderaScreen(modifier: Modifier = Modifier){
             .aspectRatio(1.5f) // Mantiene la proporción oficial 3:2 de la bandera
     ) {
 
-        val black = Color(0xFF000000)
-        val red = Color(0xFFD00000)
+        val blanco = Color.White
+        val azul =  Color(0xFF012169)
+        val height = size.height
+        val width = size.width
 
-        // Triángulo negro
-        val blackPoints = listOf(
-            Offset(0f, 0f),
-            Offset(size.width, size.height),
-            Offset(0f, size.height)
+        drawRect(color = azul)
+
+        val grosorDiagonalBlanca = size.height * 0.22f
+        val grosorDiagonalRoja = size.height * 0.10f
+        val grosorDiagonalRojaGde = size.height * 0.18f
+        val centroX = size.width / 2f
+        val centroY = size.height / 2f
+
+        drawLine(blanco, Offset(0f, 0f), Offset(size.width, size.height), grosorDiagonalBlanca)
+        drawLine(blanco, Offset(size.width, 0f), Offset(0f, size.height), grosorDiagonalBlanca)
+        drawLine(Color.Red, Offset(0f, 0f), Offset(size.width, size.height), grosorDiagonalRoja)
+        drawLine(Color.Red, Offset(size.width, 0f), Offset(0f, size.height), grosorDiagonalRoja)
+        drawLine(
+            color = Color.White,
+            start = Offset(centroX, 0f),
+            end = Offset(centroX, size.height),
+            strokeWidth = grosorDiagonalBlanca
         )
-
-        val blackPath = Path().apply {
-            moveTo(blackPoints[0].x, blackPoints[0].y)
-            lineTo(blackPoints[1].x, blackPoints[1].y)
-            lineTo(blackPoints[2].x, blackPoints[2].y)
-            close()
-        }
-        drawPath(blackPath, black)
-
-        // Triángulo rojo
-        val redPoints = listOf(
-            Offset(0f, 0f),
-            Offset(size.width, 0f),
-            Offset(size.width, size.height)
+        drawLine(
+            color = blanco,
+            start = Offset(0f, centroY),
+            end = Offset(size.width, centroY
+            ),
+            strokeWidth = grosorDiagonalBlanca
         )
-
-        val redPath = Path().apply {
-            moveTo(redPoints[0].x, redPoints[0].y)
-            lineTo(redPoints[1].x, redPoints[1].y)
-            lineTo(redPoints[2].x, redPoints[2].y)
-            close()
-        }
-        drawPath(redPath, red)
-        val triWidth = size.width * 0.38f
-
-        val centerX = triWidth * 0.45f
-        val centerY = size.height / 2f
-
-        val starPath = Path().apply {
-            val outerRadius = triWidth * 0.18f
-            val innerRadius = outerRadius * 0.45f
-            star(centerX, centerY, outerRadius, innerRadius)
-        }
-
-        drawPath(starPath, color = Color.Yellow)
-
     }
 }
 
