@@ -58,7 +58,19 @@ fun BanderaScreen(modifier: Modifier = Modifier){
         drawLine(blanco, Offset(size.width, 0f), Offset(0f, size.height), grosorDiagonalBlanca)
         drawLine(verde, Offset(0f, 0f), Offset(size.width, size.height), grosorDiagonalVerde)
         drawLine(verde, Offset(size.width, 0f), Offset(0f, size.height), grosorDiagonalVerde)
+
+        val triWidth = size.width * 0.43f
+        val trianglePath = Path().apply {
+            moveTo(0f, 0f)
+            lineTo(triWidth, size.height / 2f)
+            lineTo(0f, size.height)
+            close()
+        }
+        drawPath(trianglePath, color = Color.Black)
+
     }
+
+
 }
 
 
