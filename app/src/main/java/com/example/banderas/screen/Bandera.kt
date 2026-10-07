@@ -36,21 +36,20 @@ fun BanderaScreen(modifier: Modifier = Modifier){
 
         val blanco = Color.White
         val azul =  Color(0xFF012169)
-        val height = size.height
-        val width = size.width
+        val rojo = Color(0xFFCF142B)
 
         drawRect(color = azul)
 
         val grosorDiagonalBlanca = size.height * 0.22f
-        val grosorDiagonalRoja = size.height * 0.10f
-        val grosorDiagonalRojaGde = size.height * 0.18f
+        val grosorDiagonalRoja = size.height * 0.09f
+        val grosorDiagonalRojaGde = size.height * 0.12f
         val centroX = size.width / 2f
         val centroY = size.height / 2f
 
         drawLine(blanco, Offset(0f, 0f), Offset(size.width, size.height), grosorDiagonalBlanca)
         drawLine(blanco, Offset(size.width, 0f), Offset(0f, size.height), grosorDiagonalBlanca)
-        drawLine(Color.Red, Offset(0f, 0f), Offset(size.width, size.height), grosorDiagonalRoja)
-        drawLine(Color.Red, Offset(size.width, 0f), Offset(0f, size.height), grosorDiagonalRoja)
+        drawLine(rojo, Offset(0f, 0f), Offset(size.width, size.height), grosorDiagonalRoja)
+        drawLine(rojo, Offset(size.width, 0f), Offset(0f, size.height), grosorDiagonalRoja)
         drawLine(
             color = Color.White,
             start = Offset(centroX, 0f),
@@ -63,6 +62,19 @@ fun BanderaScreen(modifier: Modifier = Modifier){
             end = Offset(size.width, centroY
             ),
             strokeWidth = grosorDiagonalBlanca
+        )
+        drawLine(
+            color = rojo,
+            start = Offset(centroX, 0f),
+            end = Offset(centroX, size.height),
+            strokeWidth = grosorDiagonalRojaGde
+        )
+        drawLine(
+            color = rojo,
+            start = Offset(0f, centroY),
+            end = Offset(size.width, centroY
+            ),
+            strokeWidth = grosorDiagonalRojaGde
         )
     }
 }
