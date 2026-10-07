@@ -22,8 +22,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.Path
-
-
+import androidx.compose.ui.graphics.drawscope.Fill
 
 
 @Composable
@@ -37,45 +36,28 @@ fun BanderaScreen(modifier: Modifier = Modifier){
         val blanco = Color.White
         val azul =  Color(0xFF012169)
         val rojo = Color(0xFFCF142B)
+        val amarillo = Color(0xFFFFB81C)
+        val verde = Color(0xFF007749)
+        val mitadTamano = size.height / 2f
 
-        drawRect(color = azul)
+        drawRect(color = azul,
+                topLeft = Offset(0f,0f),
+                size = Size(size.width,mitadTamano)
+            )
+        drawRect(
+                color = amarillo,
+                topLeft = Offset(0f,mitadTamano),
+                size = Size(size.width,mitadTamano)
+        )
 
         val grosorDiagonalBlanca = size.height * 0.22f
-        val grosorDiagonalRoja = size.height * 0.09f
-        val grosorDiagonalRojaGde = size.height * 0.12f
-        val centroX = size.width / 2f
-        val centroY = size.height / 2f
+        val grosorDiagonalVerde = size.height * 0.13f
+
 
         drawLine(blanco, Offset(0f, 0f), Offset(size.width, size.height), grosorDiagonalBlanca)
         drawLine(blanco, Offset(size.width, 0f), Offset(0f, size.height), grosorDiagonalBlanca)
-        drawLine(rojo, Offset(0f, 0f), Offset(size.width, size.height), grosorDiagonalRoja)
-        drawLine(rojo, Offset(size.width, 0f), Offset(0f, size.height), grosorDiagonalRoja)
-        drawLine(
-            color = Color.White,
-            start = Offset(centroX, 0f),
-            end = Offset(centroX, size.height),
-            strokeWidth = grosorDiagonalBlanca
-        )
-        drawLine(
-            color = blanco,
-            start = Offset(0f, centroY),
-            end = Offset(size.width, centroY
-            ),
-            strokeWidth = grosorDiagonalBlanca
-        )
-        drawLine(
-            color = rojo,
-            start = Offset(centroX, 0f),
-            end = Offset(centroX, size.height),
-            strokeWidth = grosorDiagonalRojaGde
-        )
-        drawLine(
-            color = rojo,
-            start = Offset(0f, centroY),
-            end = Offset(size.width, centroY
-            ),
-            strokeWidth = grosorDiagonalRojaGde
-        )
+        drawLine(verde, Offset(0f, 0f), Offset(size.width, size.height), grosorDiagonalVerde)
+        drawLine(verde, Offset(size.width, 0f), Offset(0f, size.height), grosorDiagonalVerde)
     }
 }
 
