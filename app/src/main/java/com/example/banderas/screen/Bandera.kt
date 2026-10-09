@@ -62,73 +62,56 @@ fun BanderaScreen(modifier: Modifier = Modifier){
                 .fillMaxSize()
                 .aspectRatio(1.5f)
                 .background(Color.White)
-        ){
-            val w = size.width
-            val h = size.height
-            val cy = h / 2f
+        ) {
+            val width = size.width
+            val height = size.height
+            val azulCuba = Color(0xFF002E6E) // Color azul clásico de la bandera
 
-            val horizontalWidth = w * 1f
-            val horizontalHeight = h * 0.2f
 
+            val altoFranja = height * 0.15f // Altura proporcional de las franjas
+
+            // Franja superior
             drawRect(
-                color = Color(0xFF0038A8),
-                topLeft = Offset(
-                    x = (w - horizontalWidth) / 0.5f, // centrado
-                    y = (h - horizontalHeight) / 0.80f
-                ),
-                size = Size(horizontalWidth, horizontalHeight)
+                color = azulCuba,
+                topLeft = Offset(0f, height * 0.001f),
+                size = Size(width, altoFranja)
             )
-
+            //franja intermedia
             drawRect(
-                color = Color(0xFF0038A8),
-                topLeft = Offset(
-                    x = (w - horizontalWidth) / 0.5f, // centrado
-                    y = (h - horizontalHeight) / 15f
-                ),
-                size = Size(horizontalWidth, horizontalHeight)
+                color = azulCuba,
+                topLeft = Offset(0f, height * 0.30f),
+                size = Size(width, altoFranja)
             )
-            // 3. Estrella de David (Magen David) en el centro
-            val centroX = size.width / 2f
-            val centroY = size.height / 2f
-            val radioEstrella = size.height * 0.22f // Tamaño del radio de la estrella
-
-            // Triángulo superior (apuntando hacia arriba)
-            val pathTriangulo1 = Path().apply {
-                for (i in 0 until 3) {
-                    // Ángulos para formar el triángulo apuntando hacia arriba
-                    val angulo = (-Math.PI / 2) + (i * 2 * Math.PI / 3)
-                    val x = centroX + (radioEstrella * cos(angulo)).toFloat()
-                    val y = centroY + (radioEstrella * sin(angulo)).toFloat()
-                    if (i == 0) moveTo(x, y) else lineTo(x, y)
-                }
+            //penultima franja
+            drawRect(
+                color = azulCuba,
+                topLeft = Offset(0f, height * 0.58f),
+                size = Size(width, altoFranja)
+            )
+            // Franja inferior
+            drawRect(
+                color = azulCuba,
+                topLeft = Offset(0f, height * 0.85f),
+                size = Size(width, altoFranja)
+            )
+            val triWidth = size.width * 0.38f
+            val trianglePath = Path().apply {
+                moveTo(0f, 0f)
+                lineTo(triWidth, size.height / 2f)
+                lineTo(0f, size.height)
                 close()
             }
+            drawPath(trianglePath, color = Color(0xFFCB1428))
 
-            // Triángulo inferior (apuntando hacia abajo)
-            val pathTriangulo2 = Path().apply {
-                for (i in 0 until 3) {
-                    // Ángulos girados para formar el triángulo invertido
-                    val angulo = (Math.PI / 2) + (i * 2 * Math.PI / 3)
-                    val x = centroX + (radioEstrella * cos(angulo)).toFloat()
-                    val y = centroY + (radioEstrella * sin(angulo)).toFloat()
-                    if (i == 0) moveTo(x, y) else lineTo(x, y)
-                }
-                close()
+            val centerX = triWidth * 0.45f
+            val centerY = size.height / 2f
+
+            val starPath = Path().apply {
+                val outerRadius = triWidth * 0.18f
+                val innerRadius = outerRadius * 0.45f
+                star(centerX, centerY, outerRadius, innerRadius)
             }
-
-            // Dibujar los contornos o relleno de la estrella de David
-            // Usamos Stroke para que se vea con líneas definidas como la bandera oficial
-            drawPath(
-                path = pathTriangulo1,
-                color = Color(0xFF0038A8),
-                style = Stroke(width = 8f) // Grosor de las líneas de la estrella
-            )
-            drawPath(
-                path = pathTriangulo2,
-                color = Color(0xFF0038A8),
-                style = Stroke(width = 8f)
-            )
-
+            drawPath(starPath, color = Color.White)
         }
     }
 }
