@@ -33,7 +33,6 @@ fun BanderaScreen(modifier: Modifier = Modifier){
     ) {
         val (canvasRef) = createRefs()
 
-        // Guías opcionales para centrar la bandera
         val guideStart = createGuidelineFromStart(0.1f)
         val guideEnd = createGuidelineFromEnd(0.1f)
         val guideTop = createGuidelineFromTop(0.1f)
@@ -94,8 +93,6 @@ fun BanderaScreen(modifier: Modifier = Modifier){
         }
 
     }
-
-
 }
 
 
