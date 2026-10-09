@@ -36,48 +36,73 @@ fun BanderaScreen(modifier: Modifier = Modifier){
                 .aspectRatio(1.5f)
         ) {
 
-            val blanco = Color.White
-            val azul = Color(0xFF012169)
-            val amarillo = Color(0xFFFFB81C)
-            val verde = Color(0xFF007749)
+            val amarillo = Color(0xFFFFCC00)
+            val naranja = Color(0xFFFF6600)
+            val height = size.height
+            val width = size.width
 
-            val mitadTamano = size.height / 2f
+            // Triángulo naranja
+            drawRect(color = amarillo)
 
-            // Franja azul superior
-            drawRect(
-                color = azul,
-                topLeft = Offset(0f, 0f),
-                size = Size(size.width, mitadTamano)
-            )
 
-            // Franja amarilla inferior
-            drawRect(
-                color = amarillo,
-                topLeft = Offset(0f, mitadTamano),
-                size = Size(size.width, mitadTamano)
-            )
-
-            // Diagonales
-            val grosorDiagonalBlanca = size.height * 0.22f
-            val grosorDiagonalVerde = size.height * 0.13f
-
-            drawLine(blanco, Offset(0f, 0f), Offset(size.width, size.height), grosorDiagonalBlanca)
-            drawLine(blanco, Offset(size.width, 0f), Offset(0f, size.height), grosorDiagonalBlanca)
-
-            drawLine(verde, Offset(0f, 0f), Offset(size.width, size.height), grosorDiagonalVerde)
-            drawLine(verde, Offset(size.width, 0f), Offset(0f, size.height), grosorDiagonalVerde)
-
-            // Triángulo negro
-            val triWidth = size.width * 0.43f
-            val trianglePath = Path().apply {
-                moveTo(0f, 0f)
-                lineTo(triWidth, size.height / 2f)
-                lineTo(0f, size.height)
+            val blackPath = Path().apply {
+                moveTo(0f, size.height)
+                lineTo(size.width, 0f)
+                lineTo(size.width, size.height)
                 close()
             }
-            drawPath(trianglePath, color = Color.Black)
-        }
+            drawPath(blackPath, naranja)
 
+            val strokeDragon = height * 0.08f
+            val colorDragon = Color.White
+
+            val p1 = Offset(width * 0.30f, height * 0.65f)
+            val p2 = Offset(width * 0.35f, height * 0.45f)
+            val p3 = Offset(width * 0.45f, height * 0.55f)
+            val p4 = Offset(width * 0.55f, height * 0.40f)
+            val p5 = Offset(width * 0.65f, height * 0.50f)
+            val p6 = Offset(width * 0.75f, height * 0.40f)
+
+            drawLine(colorDragon, p1, p2, strokeWidth = strokeDragon)
+            drawLine(colorDragon, p2, p3, strokeWidth = strokeDragon)
+            drawLine(colorDragon, p3, p4, strokeWidth = strokeDragon)
+            drawLine(colorDragon, p4, p5, strokeWidth = strokeDragon)
+            drawLine(colorDragon, p5, p6, strokeWidth = strokeDragon)
+
+            drawLine(
+                colorDragon,
+                p6,
+                Offset(width * 0.78f, height * 0.38f),
+                strokeWidth = strokeDragon * 0.4f
+            )
+
+            // 4. Las 4 "estrellas" (las simularemos con círculos amarillos en los vértices) -> me apoye de la IA
+            val colorEstrella = Color(0xFFFFCC00)
+            val radioEstrella = height * 0.03f
+
+            // Colocamos las estrellas dentro o cerca de los "codos" del dragón > me apoye de la IA con las figuras
+            drawCircle(
+                colorEstrella,
+                radius = radioEstrella,
+                center = Offset(width * 0.35f, height * 0.48f)
+            )
+            drawCircle(
+                colorEstrella,
+                radius = radioEstrella,
+                center = Offset(width * 0.45f, height * 0.52f)
+            )
+            drawCircle(
+                colorEstrella,
+                radius = radioEstrella,
+                center = Offset(width * 0.55f, height * 0.43f)
+            )
+            drawCircle(
+                colorEstrella,
+                radius = radioEstrella,
+                center = Offset(width * 0.65f, height * 0.47f)
+            )
+
+        }
     }
 }
 
