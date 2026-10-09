@@ -44,75 +44,57 @@ fun Path.star(
 
 @Composable
 fun BanderaScreen(modifier: Modifier = Modifier){
-    ConstraintLayout(modifier = Modifier) {
-        val (canvas) = createRefs()
+    ConstraintLayout(
+        modifier = modifier.fillMaxSize()
+    ) {
+        val (canvasRef) = createRefs()
+
         val guideStart = createGuidelineFromStart(0.1f)
         val guideEnd = createGuidelineFromEnd(0.1f)
-        val guideTop = createGuidelineFromTop(0.2f)
-        val guideBottom = createGuidelineFromBottom(0.2f)
+        val guideTop = createGuidelineFromTop(0.1f)
+        val guideBottom = createGuidelineFromBottom(0.1f)
 
         Canvas(
             modifier = Modifier
-                .constrainAs(canvas) {
+                .constrainAs(canvasRef) {
                     start.linkTo(guideStart)
                     end.linkTo(guideEnd)
                     top.linkTo(guideTop)
                     bottom.linkTo(guideBottom)
                 }
-                .fillMaxSize()
+                .fillMaxWidth()
                 .aspectRatio(1.5f)
-                .background(Color.White)
         ) {
-            val width = size.width
-            val height = size.height
-            val azulCuba = Color(0xFF002E6E) // Color azul clásico de la bandera
 
+            val azulSeychelle = Color(0xFF002F6C)
+            val amarilloSeychelle = Color(0xFFFED141)
+            val rojoSeychelle = Color(0xFFD22730)
+            val verdeSeychelle = Color(0xFF007A33)
 
-            val altoFranja = height * 0.15f // Altura proporcional de las franjas
+            val origin = Offset(0f, size.height)
 
-            // Franja superior
-            drawRect(
-                color = azulCuba,
-                topLeft = Offset(0f, height * 0.001f),
-                size = Size(width, altoFranja)
+            val angles = listOf(90f, 72f, 54f, 36f, 18f, 0f)
+            val points = angles.map { pointFromAngle(it, size) }
+
+            val colors = listOf(
+                azulSeychelle,
+                amarilloSeychelle,
+                rojoSeychelle,
+                Color.White,
+                verdeSeychelle
             )
-            //franja intermedia
-            drawRect(
-                color = azulCuba,
-                topLeft = Offset(0f, height * 0.30f),
-                size = Size(width, altoFranja)
-            )
-            //penultima franja
-            drawRect(
-                color = azulCuba,
-                topLeft = Offset(0f, height * 0.58f),
-                size = Size(width, altoFranja)
-            )
-            // Franja inferior
-            drawRect(
-                color = azulCuba,
-                topLeft = Offset(0f, height * 0.85f),
-                size = Size(width, altoFranja)
-            )
-            val triWidth = size.width * 0.38f
-            val trianglePath = Path().apply {
-                moveTo(0f, 0f)
-                lineTo(triWidth, size.height / 2f)
-                lineTo(0f, size.height)
-                close()
+
+            for (i in 0 until 5) {
+                val path = Path().apply {
+                    moveTo(origin.x, origin.y)
+                    lineTo(points[i].x, points[i].y)
+                    lineTo(points[i + 1].x, points[i + 1].y)
+                    close()
+                }
+                drawPath(path, colors[i])
             }
-            drawPath(trianglePath, color = Color(0xFFCB1428))
-
-            val centerX = triWidth * 0.45f
-            val centerY = size.height / 2f
-
-            val starPath = Path().apply {
-                val outerRadius = triWidth * 0.18f
-                val innerRadius = outerRadius * 0.45f
-                star(centerX, centerY, outerRadius, innerRadius)
-            }
-            drawPath(starPath, color = Color.White)
         }
+
     }
 }
 
