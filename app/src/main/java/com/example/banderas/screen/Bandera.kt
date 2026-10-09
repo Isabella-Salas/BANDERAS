@@ -67,39 +67,57 @@ fun pointFromAngle(angle: Float, size: Size): Offset {
 
 @Composable
 fun BanderaScreen(modifier: Modifier = Modifier){
-    Canvas(
-        modifier = modifier
-            .fillMaxWidth()
-            .aspectRatio(1.5f) // Mantiene la proporción oficial 3:2 de la bandera
+    ConstraintLayout(
+        modifier = modifier.fillMaxSize()
     ) {
+        val (canvasRef) = createRefs()
 
-        val azulSeychelle = Color(0xFF002F6C)
-        val amarilloSeychelle = Color(0xFFFED141)
-        val rojoSeychelle = Color(0xFFD22730)
-        val verdeSeychelle =  Color(0xFF007A33)
-        val origin = Offset(0f, size.height)
+        val guideStart = createGuidelineFromStart(0.1f)
+        val guideEnd = createGuidelineFromEnd(0.1f)
+        val guideTop = createGuidelineFromTop(0.1f)
+        val guideBottom = createGuidelineFromBottom(0.1f)
 
+        Canvas(
+            modifier = Modifier
+                .constrainAs(canvasRef) {
+                    start.linkTo(guideStart)
+                    end.linkTo(guideEnd)
+                    top.linkTo(guideTop)
+                    bottom.linkTo(guideBottom)
+                }
+                .fillMaxWidth()
+                .aspectRatio(1.5f)
+        ) {
 
-        val angles = listOf(90f, 72f, 54f, 36f, 18f, 0f)
-        val points = angles.map { pointFromAngle(it, size) }
+            val azulSeychelle = Color(0xFF002F6C)
+            val amarilloSeychelle = Color(0xFFFED141)
+            val rojoSeychelle = Color(0xFFD22730)
+            val verdeSeychelle = Color(0xFF007A33)
 
-        val colors = listOf(azulSeychelle, amarilloSeychelle, rojoSeychelle, Color.White, verdeSeychelle)
+            val origin = Offset(0f, size.height)
 
+            val angles = listOf(90f, 72f, 54f, 36f, 18f, 0f)
+            val points = angles.map { pointFromAngle(it, size) }
 
-        for (i in 0 until 5) {
-            val path = Path().apply {
-                moveTo(origin.x, origin.y)
-                lineTo(points[i].x, points[i].y)
-                lineTo(points[i + 1].x, points[i + 1].y)
-                close()
+            val colors = listOf(
+                azulSeychelle,
+                amarilloSeychelle,
+                rojoSeychelle,
+                Color.White,
+                verdeSeychelle
+            )
+
+            for (i in 0 until 5) {
+                val path = Path().apply {
+                    moveTo(origin.x, origin.y)
+                    lineTo(points[i].x, points[i].y)
+                    lineTo(points[i + 1].x, points[i + 1].y)
+                    close()
+                }
+                drawPath(path, colors[i])
             }
-            drawPath(path, colors[i])
         }
 
-
-
-
-        // Estrella centrada aprox en (triWidth * 0.38f, size.height / 2f)
     }
 }
 
