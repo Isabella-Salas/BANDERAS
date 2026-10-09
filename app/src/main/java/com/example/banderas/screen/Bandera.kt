@@ -66,35 +66,52 @@ fun BanderaScreen(modifier: Modifier = Modifier){
                 .aspectRatio(1.5f)
         ) {
 
-            val azulSeychelle = Color(0xFF002F6C)
-            val amarilloSeychelle = Color(0xFFFED141)
-            val rojoSeychelle = Color(0xFFD22730)
-            val verdeSeychelle = Color(0xFF007A33)
+            val black = Color(0xFF000000)
+            val red = Color(0xFFD00000)
 
-            val origin = Offset(0f, size.height)
-
-            val angles = listOf(90f, 72f, 54f, 36f, 18f, 0f)
-            val points = angles.map { pointFromAngle(it, size) }
-
-            val colors = listOf(
-                azulSeychelle,
-                amarilloSeychelle,
-                rojoSeychelle,
-                Color.White,
-                verdeSeychelle
+            // Triángulo negro
+            val blackPoints = listOf(
+                Offset(0f, 0f),
+                Offset(size.width, size.height),
+                Offset(0f, size.height)
             )
 
-            for (i in 0 until 5) {
-                val path = Path().apply {
-                    moveTo(origin.x, origin.y)
-                    lineTo(points[i].x, points[i].y)
-                    lineTo(points[i + 1].x, points[i + 1].y)
-                    close()
-                }
-                drawPath(path, colors[i])
+            val blackPath = Path().apply {
+                moveTo(blackPoints[0].x, blackPoints[0].y)
+                lineTo(blackPoints[1].x, blackPoints[1].y)
+                lineTo(blackPoints[2].x, blackPoints[2].y)
+                close()
             }
-        }
+            drawPath(blackPath, black)
 
+            // Triángulo rojo
+            val redPoints = listOf(
+                Offset(0f, 0f),
+                Offset(size.width, 0f),
+                Offset(size.width, size.height)
+            )
+
+            val redPath = Path().apply {
+                moveTo(redPoints[0].x, redPoints[0].y)
+                lineTo(redPoints[1].x, redPoints[1].y)
+                lineTo(redPoints[2].x, redPoints[2].y)
+                close()
+            }
+            drawPath(redPath, red)
+
+            // Estrella
+            val triWidth = size.width * 0.38f
+            val centerX = triWidth * 0.45f
+            val centerY = size.height / 2f
+
+            val starPath = Path().apply {
+                val outerRadius = triWidth * 0.18f
+                val innerRadius = outerRadius * 0.45f
+                star(centerX, centerY, outerRadius, innerRadius)
+            }
+
+            drawPath(starPath, color = Color.Yellow)
+        }
     }
 }
 
