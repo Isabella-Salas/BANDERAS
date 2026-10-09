@@ -6,9 +6,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
+import kotlin.math.cos
+import kotlin.math.sin
 import androidx.compose.ui.graphics.Path
 
 
@@ -57,40 +61,72 @@ fun BanderaScreen(modifier: Modifier = Modifier){
                 }
                 .fillMaxSize()
                 .aspectRatio(1.5f)
-                .background(Color(0xFFD52B1E))
-        ) {
+                .background(Color.White)
+        ){
             val w = size.width
             val h = size.height
             val cy = h / 2f
 
-            val rOut = h * 0.30f
-            drawCircle(
-                color = Color.White,
-                radius = rOut,
-                center = Offset(w * 0.38f, cy)
+            val horizontalWidth = w * 1f
+            val horizontalHeight = h * 0.2f
+
+            drawRect(
+                color = Color(0xFF0038A8),
+                topLeft = Offset(
+                    x = (w - horizontalWidth) / 0.5f, // centrado
+                    y = (h - horizontalHeight) / 0.80f
+                ),
+                size = Size(horizontalWidth, horizontalHeight)
             )
 
-            drawCircle(
-                color = Color(0xFFD52B1E),
-                radius = h * 0.24f,
-                center = Offset(w * 0.38f + h * 0.09f, cy)
+            drawRect(
+                color = Color(0xFF0038A8),
+                topLeft = Offset(
+                    x = (w - horizontalWidth) / 0.5f, // centrado
+                    y = (h - horizontalHeight) / 15f
+                ),
+                size = Size(horizontalWidth, horizontalHeight)
             )
+            // 3. Estrella de David (Magen David) en el centro
+            val centroX = size.width / 2f
+            val centroY = size.height / 2f
+            val radioEstrella = size.height * 0.22f // Tamaño del radio de la estrella
 
-            val starRadius = h * 0.10f
-            val starCenter = Offset(w * 0.55f, cy)
-
-            val star = Path().apply {
-                star(
-                    centerX = starCenter.x,
-                    centerY = starCenter.y,
-                    outerRadius = starRadius,
-                    innerRadius = starRadius * 0.45f
-                )
+            // Triángulo superior (apuntando hacia arriba)
+            val pathTriangulo1 = Path().apply {
+                for (i in 0 until 3) {
+                    // Ángulos para formar el triángulo apuntando hacia arriba
+                    val angulo = (-Math.PI / 2) + (i * 2 * Math.PI / 3)
+                    val x = centroX + (radioEstrella * cos(angulo)).toFloat()
+                    val y = centroY + (radioEstrella * sin(angulo)).toFloat()
+                    if (i == 0) moveTo(x, y) else lineTo(x, y)
+                }
+                close()
             }
 
+            // Triángulo inferior (apuntando hacia abajo)
+            val pathTriangulo2 = Path().apply {
+                for (i in 0 until 3) {
+                    // Ángulos girados para formar el triángulo invertido
+                    val angulo = (Math.PI / 2) + (i * 2 * Math.PI / 3)
+                    val x = centroX + (radioEstrella * cos(angulo)).toFloat()
+                    val y = centroY + (radioEstrella * sin(angulo)).toFloat()
+                    if (i == 0) moveTo(x, y) else lineTo(x, y)
+                }
+                close()
+            }
+
+            // Dibujar los contornos o relleno de la estrella de David
+            // Usamos Stroke para que se vea con líneas definidas como la bandera oficial
             drawPath(
-                path = star,
-                color = Color.White
+                path = pathTriangulo1,
+                color = Color(0xFF0038A8),
+                style = Stroke(width = 8f) // Grosor de las líneas de la estrella
+            )
+            drawPath(
+                path = pathTriangulo2,
+                color = Color(0xFF0038A8),
+                style = Stroke(width = 8f)
             )
 
         }
