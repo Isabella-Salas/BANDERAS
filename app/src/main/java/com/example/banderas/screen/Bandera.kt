@@ -35,32 +35,12 @@ fun BanderaScreen(modifier: Modifier = Modifier){
                 .aspectRatio(1.5f)
                 .background(Color(0xFFD52B1E))
         ){
-            val w = size.width
-            val h = size.height
-
-            val verticalWidth = w * 0.2f
-            val verticalHeight = h * 0.62f
-
-            drawRect(
-                color = Color.White,
-                topLeft = Offset(
-                    x = (w - verticalWidth) / 2f,   // centrado
-                    y = (h - verticalHeight) / 2f
-                ),
-                size = Size(verticalWidth, verticalHeight)
-            )
-
-            val horizontalWidth = w * 0.62f
-            val horizontalHeight = h * 0.2f
-
-            drawRect(
-                color = Color.White,
-                topLeft = Offset(
-                    x = (w - horizontalWidth) / 2f, // centrado
-                    y = (h - horizontalHeight) / 2f
-                ),
-                size = Size(horizontalWidth, horizontalHeight)
-            )
+            val cy = size.height / 2f
+            val rOut = size.height * 0.30f
+            drawCircle(color = Color.White, radius = rOut,
+                center = Offset(size.width * 0.38f, cy))
+            drawCircle(color = Color(0xFFE30A17), radius = size.height * 0.24f,
+                center = Offset(size.width * 0.38f + size.height * 0.09f, cy))
 
         }
     }
