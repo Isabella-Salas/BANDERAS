@@ -16,6 +16,31 @@ import kotlin.math.sin
 import androidx.compose.ui.graphics.Path
 
 
+fun Path.star(
+    centerX: Float,
+    centerY: Float,
+    outerRadius: Float,
+    innerRadius: Float
+) {
+    val points = 5
+    val angle = (2.0 * Math.PI / points).toFloat()
+    val halfAngle = angle / 2f
+
+    moveTo(centerX, centerY - outerRadius)
+
+    for (i in 1 until points * 2) {
+        val r = if (i % 2 == 0) outerRadius else innerRadius
+        val a = i * halfAngle - Math.PI.toFloat() / 2f
+
+        val x = centerX + (r * kotlin.math.cos(a))
+        val y = centerY + (r * kotlin.math.sin(a))
+
+        lineTo(x, y)
+    }
+
+    close()
+}
+
 
 @Composable
 fun BanderaScreen(modifier: Modifier = Modifier){
@@ -40,6 +65,7 @@ fun BanderaScreen(modifier: Modifier = Modifier){
         ){
             val w = size.width
             val h = size.height
+            val cy = h / 2f
 
             val horizontalWidth = w * 1f
             val horizontalHeight = h * 0.2f
