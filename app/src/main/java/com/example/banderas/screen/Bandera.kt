@@ -23,66 +23,100 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Fill
+import androidx.constraintlayout.compose.ConstraintLayout
 
 
 @Composable
 fun BanderaScreen(modifier: Modifier = Modifier){
-    Canvas(
-        modifier = modifier
-            .fillMaxWidth()
-            .aspectRatio(1.5f) // Mantiene la proporción oficial 3:2 de la bandera
+    ConstraintLayout(
+        modifier = modifier.fillMaxSize()
     ) {
+        val (canvasRef) = createRefs()
 
-        val amarillo = Color(0xFFFFCC00)
-        val naranja =  Color(0xFFFF6600)
-        val height = size.height
-        val width = size.width
+        val guideStart = createGuidelineFromStart(0.1f)
+        val guideEnd = createGuidelineFromEnd(0.1f)
+        val guideTop = createGuidelineFromTop(0.1f)
+        val guideBottom = createGuidelineFromBottom(0.1f)
 
-        // Triángulo naranja
-        drawRect(color = amarillo)
+        Canvas(
+            modifier = Modifier
+                .constrainAs(canvasRef) {
+                    start.linkTo(guideStart)
+                    end.linkTo(guideEnd)
+                    top.linkTo(guideTop)
+                    bottom.linkTo(guideBottom)
+                }
+                .fillMaxWidth()
+                .aspectRatio(1.5f)
+        ) {
+
+            val amarillo = Color(0xFFFFCC00)
+            val naranja = Color(0xFFFF6600)
+            val height = size.height
+            val width = size.width
+
+            // Triángulo naranja
+            drawRect(color = amarillo)
 
 
-        val blackPath = Path().apply {
-            moveTo(0f,size.height)
-            lineTo(size.width,0f)
-            lineTo(size.width, size.height)
-            close()
+            val blackPath = Path().apply {
+                moveTo(0f, size.height)
+                lineTo(size.width, 0f)
+                lineTo(size.width, size.height)
+                close()
+            }
+            drawPath(blackPath, naranja)
+
+            val strokeDragon = height * 0.08f
+            val colorDragon = Color.White
+
+            val p1 = Offset(width * 0.30f, height * 0.65f)
+            val p2 = Offset(width * 0.35f, height * 0.45f)
+            val p3 = Offset(width * 0.45f, height * 0.55f)
+            val p4 = Offset(width * 0.55f, height * 0.40f)
+            val p5 = Offset(width * 0.65f, height * 0.50f)
+            val p6 = Offset(width * 0.75f, height * 0.40f)
+
+            drawLine(colorDragon, p1, p2, strokeWidth = strokeDragon)
+            drawLine(colorDragon, p2, p3, strokeWidth = strokeDragon)
+            drawLine(colorDragon, p3, p4, strokeWidth = strokeDragon)
+            drawLine(colorDragon, p4, p5, strokeWidth = strokeDragon)
+            drawLine(colorDragon, p5, p6, strokeWidth = strokeDragon)
+
+            drawLine(
+                colorDragon,
+                p6,
+                Offset(width * 0.78f, height * 0.38f),
+                strokeWidth = strokeDragon * 0.4f
+            )
+
+            // 4. Las 4 "estrellas" (las simularemos con círculos amarillos en los vértices) -> me apoye de la IA
+            val colorEstrella = Color(0xFFFFCC00)
+            val radioEstrella = height * 0.03f
+
+            // Colocamos las estrellas dentro o cerca de los "codos" del dragón > me apoye de la IA con las figuras
+            drawCircle(
+                colorEstrella,
+                radius = radioEstrella,
+                center = Offset(width * 0.35f, height * 0.48f)
+            )
+            drawCircle(
+                colorEstrella,
+                radius = radioEstrella,
+                center = Offset(width * 0.45f, height * 0.52f)
+            )
+            drawCircle(
+                colorEstrella,
+                radius = radioEstrella,
+                center = Offset(width * 0.55f, height * 0.43f)
+            )
+            drawCircle(
+                colorEstrella,
+                radius = radioEstrella,
+                center = Offset(width * 0.65f, height * 0.47f)
+            )
+
         }
-        drawPath(blackPath, naranja)
-
-        val strokeDragon = height * 0.08f
-        val colorDragon = Color.White
-
-        val p1 = Offset(width * 0.30f, height * 0.65f)
-        val p2 = Offset(width * 0.35f, height * 0.45f)
-        val p3 = Offset(width * 0.45f, height * 0.55f)
-        val p4 = Offset(width * 0.55f, height * 0.40f)
-        val p5 = Offset(width * 0.65f, height * 0.50f)
-        val p6 = Offset(width * 0.75f, height * 0.40f)
-
-        drawLine(colorDragon, p1, p2, strokeWidth = strokeDragon)
-        drawLine(colorDragon, p2, p3, strokeWidth = strokeDragon)
-        drawLine(colorDragon, p3, p4, strokeWidth = strokeDragon)
-        drawLine(colorDragon, p4, p5, strokeWidth = strokeDragon)
-        drawLine(colorDragon, p5, p6, strokeWidth = strokeDragon)
-
-        drawLine(
-            colorDragon,
-            p6,
-            Offset(width * 0.78f, height * 0.38f),
-            strokeWidth = strokeDragon * 0.4f
-        )
-
-        // 4. Las 4 "estrellas" (las simularemos con círculos amarillos en los vértices) -> me apoye de la IA
-        val colorEstrella = Color(0xFFFFCC00)
-        val radioEstrella = height * 0.03f
-
-        // Colocamos las estrellas dentro o cerca de los "codos" del dragón > me apoye de la IA con las figuras
-        drawCircle(colorEstrella, radius = radioEstrella, center = Offset(width * 0.35f, height * 0.48f))
-        drawCircle(colorEstrella, radius = radioEstrella, center = Offset(width * 0.45f, height * 0.52f))
-        drawCircle(colorEstrella, radius = radioEstrella, center = Offset(width * 0.55f, height * 0.43f))
-        drawCircle(colorEstrella, radius = radioEstrella, center = Offset(width * 0.65f, height * 0.47f))
-
     }
 
 
